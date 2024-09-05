@@ -1,5 +1,3 @@
-
-
 package tp5_lab.vistas;
 
 import static java.lang.Integer.parseInt;
@@ -10,16 +8,14 @@ import java.util.TreeSet;
 import javax.swing.JOptionPane;
 import tp5_lab.Cliente;
 
-
 public class ContactoFormBien extends javax.swing.JFrame {
 
-    public TreeMap<Long,Cliente> telefonos = new TreeMap<>();
-    
+    public TreeMap<Long, Cliente> telefonos = new TreeMap<>();
+
     public ContactoFormBien() {
         initComponents();
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -53,6 +49,11 @@ public class ContactoFormBien extends javax.swing.JFrame {
         });
 
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnBorrar.setText("Borrar");
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
@@ -187,50 +188,15 @@ public class ContactoFormBien extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        int dni = parseInt(jtfDNI.getText());
-        String apellido = jtfApellido.getText();
-        String nombre = jtfNombre.getText();
-        String direccion = jtfDireccion.getText();
-        String ciudad = jtfCiudad.getText();
-        String telefonoStr =jtfTelefono.getText();
 
-        // Validar que el teléfono es un número
-        Long telefono;
-        try {
-            telefono = Long.parseLong(telefonoStr);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El teléfono debe ser un número válido.");
-            return;
-        }
+        // Limpiar los campos después de guardar
+        jtfDNI.setText("");
+        jtfNombre.setText("");
+        jtfApellido.setText("");
+        jtfDireccion.setText("");
+        jtfCiudad.setText("");
+        jtfTelefono.setText("");
 
-        // Crear una nueva instancia de Cliente
-        Cliente cliente = new Cliente(dni, nombre, apellido, direccion, ciudad,telefono);
-
-        // Agregar el nuevo cliente al TreeMap
-        telefonos.put(telefono, cliente);
-
-        Set<Long> contactos = new TreeSet<>();
-        for (Map.Entry<Long, Cliente> entry : telefonos.entrySet()) {   // Creo un forEach el setEntry devuelve las entradas clave, valor y permite ser iteradas
-            if (entry.getValue().getApellido().equalsIgnoreCase(apellido)) { //Para cada entrada, se obtiene el Cliente (valor) y se verifica si su apellido coincide con el parametro
-                contactos.add(entry.getKey());  //si coincide lo agrega al TreeMap y lo devuelve
-            }
-            
-            //Con esto mostras el HashMap
-            for (Map.Entry<Long, Cliente> entry1 : telefonos.entrySet()) {
-                JOptionPane.showMessageDialog(null, entry1);
-            }
-            
-            
-            // Limpiar los campos después de guardar
-            jtfDNI.setText("");
-            jtfNombre.setText("");
-            jtfApellido.setText("");
-            jtfDireccion.setText("");
-            jtfCiudad.setText("");
-            jtfTelefono.setText("");
-
-            // Opcional: Mostrar un mensaje de éxito
-            JOptionPane.showMessageDialog(this, "Cliente guardado exitosamente.");}
 
     }//GEN-LAST:event_btnNuevoActionPerformed
 
@@ -250,7 +216,46 @@ public class ContactoFormBien extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        int dni = parseInt(jtfDNI.getText());
+        String apellido = jtfApellido.getText();
+        String nombre = jtfNombre.getText();
+        String direccion = jtfDireccion.getText();
+        String ciudad = jtfCiudad.getText();
+        String telefonoStr = jtfTelefono.getText();
+
+        // Validar que el teléfono es un número
+        Long telefono;
+        try {
+            telefono = Long.parseLong(telefonoStr);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El teléfono debe ser un número válido.");
+            return;
+        }
+
+        // Crear una nueva instancia de Cliente
+        Cliente cliente = new Cliente(dni, nombre, apellido, direccion, ciudad, telefono);
+
+        // Agregar el nuevo cliente al TreeMap
+        telefonos.put(telefono, cliente);
+
+        Set<Long> contactos = new TreeSet<>();
+        for (Map.Entry<Long, Cliente> entry : telefonos.entrySet()) {   // Creo un forEach el setEntry devuelve las entradas clave, valor y permite ser iteradas
+            if (entry.getValue().getApellido().equalsIgnoreCase(apellido)) { //Para cada entrada, se obtiene el Cliente (valor) y se verifica si su apellido coincide con el parametro
+                contactos.add(entry.getKey());  //si coincide lo agrega al TreeMap y lo devuelve
+            }
+
+            //Con esto mostras el HashMap
+            for (Map.Entry<Long, Cliente> entry1 : telefonos.entrySet()) {
+                JOptionPane.showMessageDialog(null, entry1);
+            }
+
+            // Opcional: Mostrar un mensaje de éxito
+            JOptionPane.showMessageDialog(this, "Cliente guardado exitosamente.");
+        }
+
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -282,6 +287,7 @@ public class ContactoFormBien extends javax.swing.JFrame {
                 new ContactoFormBien().setVisible(true);
             }
         });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

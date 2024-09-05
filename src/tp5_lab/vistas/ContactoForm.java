@@ -6,9 +6,11 @@ package tp5_lab.vistas;
 
 import java.awt.Color;
 import static java.lang.Integer.parseInt;
+import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import javax.swing.JOptionPane;
-import tp5_lab.Cliente;
 import tp5_lab.Cliente;
 
 /**
@@ -93,11 +95,6 @@ public class ContactoForm extends javax.swing.JFrame {
         });
 
         btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
 
         btnBorrar.setText("Borrar");
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
@@ -145,7 +142,7 @@ public class ContactoForm extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jtfApellido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                    .addComponent(jtfApellido, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jtfDireccion, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jtfDNI)
                     .addComponent(jtfNombre)
@@ -255,7 +252,14 @@ public class ContactoForm extends javax.swing.JFrame {
 
     // Agregar el nuevo cliente al TreeMap
     telefonos.put(telefono, cliente);
-
+       
+     Set<Long> contactos = new TreeSet<>();
+    for (Map.Entry<Long, Cliente> entry : telefonos.entrySet()) {   // Creo un forEach el setEntry devuelve las entradas clave, valor y permite ser iteradas
+            if (entry.getValue().getApellido().equalsIgnoreCase(apellido)) { //Para cada entrada, se obtiene el Cliente (valor) y se verifica si su apellido coincide con el parametro
+                contactos.add(entry.getKey());  //si coincide lo agrega al TreeMap y lo devuelve
+            }
+    
+    
     // Limpiar los campos después de guardar
     jtfDNI.setText("");
     jtfNombre.setText("");
@@ -265,13 +269,9 @@ public class ContactoForm extends javax.swing.JFrame {
     jtfTelefono.setText("");
 
     // Opcional: Mostrar un mensaje de éxito
-    JOptionPane.showMessageDialog(this, "Cliente guardado exitosamente.");
+    JOptionPane.showMessageDialog(this, "Cliente guardado exitosamente.");}
      
     }//GEN-LAST:event_btnNuevoActionPerformed
-
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void jtfDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfDNIActionPerformed
         // TODO add your handling code here:

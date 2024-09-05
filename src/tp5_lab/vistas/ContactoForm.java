@@ -5,7 +5,10 @@
 package tp5_lab.vistas;
 
 import java.awt.Color;
+import static java.lang.Integer.parseInt;
 import java.util.TreeMap;
+import javax.swing.JOptionPane;
+import tp5_lab.Cliente;
 import tp5_lab.Cliente;
 
 /**
@@ -15,7 +18,7 @@ import tp5_lab.Cliente;
 public class ContactoForm extends javax.swing.JFrame {
 
     ContactoForm ventana = new ContactoForm();
-    private final TreeMap<Long,Cliente> telefonos = new TreeMap<>();
+   public TreeMap<Long,Cliente> telefonos = new TreeMap<>();
     
     public ContactoForm() {
         initComponents();
@@ -231,7 +234,39 @@ public class ContactoForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        
+        int dni = parseInt(jtfDNI.getText());
+       String apellido = jtfApellido.getText();
+       String nombre = jtfNombre.getText();
+       String direccion = jtfDireccion.getText();
+       String ciudad = jtfCiudad.getText();
+       String telefonoStr =jtfTelefono.getText();
+       
+        // Validar que el teléfono es un número
+     Long telefono;
+    try {
+        telefono = Long.parseLong(telefonoStr);
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "El teléfono debe ser un número válido.");
+        return;
+    }
+    
+     // Crear una nueva instancia de Cliente
+    Cliente cliente = new Cliente(dni, nombre, apellido, direccion, ciudad,telefono);
+
+    // Agregar el nuevo cliente al TreeMap
+    telefonos.put(telefono, cliente);
+
+    // Limpiar los campos después de guardar
+    jtfDNI.setText("");
+    jtfNombre.setText("");
+    jtfApellido.setText("");
+    jtfDireccion.setText("");
+    jtfCiudad.setText("");
+    jtfTelefono.setText("");
+
+    // Opcional: Mostrar un mensaje de éxito
+    JOptionPane.showMessageDialog(this, "Cliente guardado exitosamente.");
+     
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed

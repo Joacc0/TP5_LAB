@@ -9,13 +9,23 @@ public class Cliente {
     
     int dni;
     String nombre,apellido,direccion,ciudad;
+    Long telefono;
 
-    public Cliente(int dni, String nombre, String apellido, String direccion, String ciudad) {
+    public Cliente(int dni, String nombre, String apellido, String direccion, String ciudad, Long telefono ){
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
         this.direccion = direccion;
         this.ciudad = ciudad;
+        this.telefono = telefono;
+    }
+
+    public Long getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(Long telefono) {
+        this.telefono = telefono;
     }
 
     public int getDni() {
